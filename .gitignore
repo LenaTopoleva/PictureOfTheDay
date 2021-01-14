@@ -45,3 +45,5 @@ output.json
 
 #NDK
 obj/
+
+app.properties
