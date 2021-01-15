@@ -11,7 +11,8 @@ import com.lenatopoleva.pictureoftheday.mvp.presenter.MainPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
-import moxy.ktx.moxyPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
@@ -24,14 +25,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     val navigator = object : SupportAppNavigator(this, supportFragmentManager, R.id.container){
     }
 
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: MainPresenter
 
-    val presenter by moxyPresenter {
-        App.instance.appComponent.inject(this)
-
-        MainPresenter().apply {
-            App.instance.appComponent.inject(this)
-        }
-    }
+    @ProvidePresenter
+    fun provide() = presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.instance.appComponent.inject(this)

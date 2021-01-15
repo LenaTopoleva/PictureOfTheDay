@@ -8,6 +8,8 @@ import com.lenatopoleva.pictureoftheday.mvp.presenter.MainPresenter
 import com.lenatopoleva.pictureoftheday.mvp.presenter.PictureOfTheDayPresenter
 import com.lenatopoleva.pictureoftheday.mvp.presenter.WikiSearchPresenter
 import com.lenatopoleva.pictureoftheday.ui.activity.MainActivity
+import com.lenatopoleva.pictureoftheday.ui.fragment.PictureOfTheDayFragment
+import com.lenatopoleva.pictureoftheday.ui.fragment.WikiSearchFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -24,5 +26,7 @@ interface AppComponent {
     fun inject(mainPresenter: MainPresenter)
     fun inject(pictureOfTheDayPresenter: PictureOfTheDayPresenter)
     fun inject(wikiSearchPresenter: WikiSearchPresenter)
+    fun inject(pictureOfTheDayFragment: PictureOfTheDayFragment)
+    fun inject(wikiSearchFragment: WikiSearchFragment)
 
 }

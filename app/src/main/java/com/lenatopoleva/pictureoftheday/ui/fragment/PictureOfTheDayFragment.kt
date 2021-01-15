@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lenatopoleva.pictureoftheday.ui.App
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import com.lenatopoleva.pictureoftheday.R
+import com.lenatopoleva.pictureoftheday.mvp.presenter.MainPresenter
 import com.lenatopoleva.pictureoftheday.mvp.presenter.PictureOfTheDayPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.PictureOfTheDayView
 import kotlinx.android.synthetic.main.bottom_sheet.*
@@ -25,16 +26,24 @@ import kotlinx.android.synthetic.main.fragment_picture_of_the_day.*
 import kotlinx.android.synthetic.main.fragment_wiki_search.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import javax.inject.Inject
 
 class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, BackButtonListener {
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
     }
 
-    val presenter by moxyPresenter {
-        PictureOfTheDayPresenter().apply {
-            App.instance.appComponent?.inject(this)
-        }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: PictureOfTheDayPresenter
+
+    @ProvidePresenter
+    fun provide() = presenter
+
+    init {
+        App.instance.appComponent.inject(this)
     }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>

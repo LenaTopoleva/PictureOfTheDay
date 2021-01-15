@@ -13,19 +13,27 @@ import com.lenatopoleva.pictureoftheday.ui.App
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import kotlinx.android.synthetic.main.fragment_wiki_search.*
 import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import javax.inject.Inject
 
 
 class WikiSearchFragment: MvpAppCompatFragment(), WikiSearchView, BackButtonListener {
+
+    init {
+        App.instance.appComponent.inject(this)
+    }
+
     companion object {
         fun newInstance() = WikiSearchFragment()
     }
 
-    val presenter by moxyPresenter {
-        WikiSearchPresenter().apply {
-            App.instance.appComponent.inject(this)
-        }
-    }
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: WikiSearchPresenter
+
+    @ProvidePresenter
+    fun provide() = presenter
 
     lateinit var webView: WebView
 

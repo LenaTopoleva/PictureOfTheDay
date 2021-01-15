@@ -7,10 +7,7 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class MainPresenter: MvpPresenter<MainView>() {
-    @Inject lateinit var app: App
-
-    @Inject lateinit var router: Router
+class MainPresenter @Inject constructor (val app: App, val router: Router): MvpPresenter<MainView>() {
 
     val primaryScreen = Screens.PictureOfTheDayScreen()
 
