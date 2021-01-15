@@ -10,17 +10,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class RetrofitPictureOfTheDayRepo(val api: IPictureOfTheDaySource): IPictureOfTheDayRepo {
 
     override fun getPictureOfTheDay(): Single<PictureOfTheDayData> {
-        var data: PictureOfTheDayData? = null
         val apiKey: String = BuildConfig.NASA_API_KEY
         if (apiKey.isBlank()) {
-            data = PictureOfTheDayData.Error(Throwable("You need API key"))
+            return Single.just(PictureOfTheDayData.Error(Throwable("You need API key")))
         } else {
-            api.getPictureOfTheDay(apiKey)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .blockingSubscribe({result -> data = PictureOfTheDayData.Success(result) },
-                    {error -> data = PictureOfTheDayData.Error(error) })
+            return api.getPictureOfTheDay(apiKey)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .map { PictureOfTheDayData.Success(it) }
         }
-       return Single.just(data)
     }
 }
