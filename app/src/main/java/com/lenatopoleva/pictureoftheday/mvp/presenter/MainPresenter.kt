@@ -24,4 +24,9 @@ class MainPresenter @Inject constructor (val app: App, val router: Router): MvpP
         router.navigateTo(Screens.WikiSearchScreen())
     }
 
+    fun settingsMenuItemClicked() {
+        router.navigateTo(Screens.SettingsScreen())
+    }
+
+
 }

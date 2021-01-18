@@ -6,10 +6,12 @@ import com.lenatopoleva.pictureoftheday.mvp.model.repo.retrofit.RetrofitPictureO
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 class PictureOfTheDayModule {
 
+    @Singleton
     @Provides
     fun pictureOfTheDayRepo(api: IPictureOfTheDaySource): IPictureOfTheDayRepo =
         RetrofitPictureOfTheDayRepo(api)
