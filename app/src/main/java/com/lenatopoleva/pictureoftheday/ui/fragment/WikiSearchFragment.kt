@@ -1,5 +1,6 @@
 package com.lenatopoleva.pictureoftheday.ui.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -65,6 +66,7 @@ class WikiSearchFragment: MvpAppCompatFragment(), WikiSearchView, BackButtonList
         webView.clearHistory()
         webView.settings.setJavaScriptEnabled(true)
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
+        webView.visibility = View.VISIBLE
         webView.loadUrl(url)
     }
 

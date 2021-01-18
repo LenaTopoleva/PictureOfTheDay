@@ -4,4 +4,9 @@
     <string name="wiki_helper_text">Поищите термин в Википедии</string>
     <string name="photo_of_the_day_stub">Photo of the day</string>
     <string name="wikipedia">Wikipedia</string>
+    <string name="color_theme">Цветовая тема</string>
+    <string name="moon_theme">Лунная призма</string>
+    <string name="mars_theme">Марс атакует</string>
+    <string name="night_chip">Ночь</string>
+    <string name="night_mode_tv">Ночной режим</string>
 </resources>

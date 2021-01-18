@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/MyTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/search_wiki"
@@ -32,6 +31,7 @@
         android:id="@+id/wiki_web_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
