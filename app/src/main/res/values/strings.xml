@@ -9,4 +9,7 @@
     <string name="mars_theme">Марс атакует</string>
     <string name="night_chip">Ночь</string>
     <string name="night_mode_tv">Ночной режим</string>
+    <string name="photo_of_the_day">Фото дня</string>
+    <string name="earth">Земля</string>
+    <string name="settings">Настройки</string>
 </resources>

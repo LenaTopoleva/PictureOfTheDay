@@ -1,5 +1,6 @@
 package com.lenatopoleva.pictureoftheday.navigation
 
+import com.lenatopoleva.pictureoftheday.ui.fragment.EarthFragment
 import com.lenatopoleva.pictureoftheday.ui.fragment.PictureOfTheDayFragment
 import com.lenatopoleva.pictureoftheday.ui.fragment.SettingsFragment
 import com.lenatopoleva.pictureoftheday.ui.fragment.WikiSearchFragment
@@ -16,5 +17,9 @@ class Screens {
 
     class SettingsScreen() : SupportAppScreen() {
         override fun getFragment() = SettingsFragment.newInstance()
+    }
+
+    class EarthScreen() : SupportAppScreen() {
+        override fun getFragment() = EarthFragment.newInstance()
     }
 }

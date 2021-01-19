@@ -28,5 +28,20 @@ class MainPresenter @Inject constructor (val app: App, val router: Router): MvpP
         router.navigateTo(Screens.SettingsScreen())
     }
 
+    fun photoOfTheDayMenuItemClicked() {
+        router.navigateTo(Screens.PictureOfTheDayScreen())
+    }
+
+    fun earthMenuItemClicked() {
+        router.navigateTo(Screens.EarthScreen())
+    }
+
+    fun checkCurrentBottomMenuItem(currentScreenName: String) {
+        if (currentScreenName.contains("PictureOfTheDayScreen")) viewState.setPODMenuItemChecked()
+        if (currentScreenName.contains("WikiSearchScreen")) viewState.setWikiMenuItemChecked()
+        if (currentScreenName.contains("SettingsScreen")) viewState.setSettingsMenuItemChecked()
+        if (currentScreenName.contains("EarthScreen")) viewState.setEarthMenuItemChecked()
+    }
+
 
 }

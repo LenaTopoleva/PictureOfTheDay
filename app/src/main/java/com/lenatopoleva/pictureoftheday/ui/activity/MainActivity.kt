@@ -17,6 +17,10 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Back
+import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Forward
+import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 
 
@@ -25,7 +29,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     @Inject lateinit var navigatorHolder: NavigatorHolder
     @Inject lateinit var sharedPreferences: SharedPreferences
 
-    val navigator = object : SupportAppNavigator(this, supportFragmentManager, R.id.container){}
+    val navigator = object : SupportAppNavigator(this, supportFragmentManager, R.id.container){
+        override fun applyCommands(commands: Array<out Command>) {
+            presenter.checkCurrentBottomMenuItem(getCurrentScreenName(commands))
+            super.applyCommands(commands)
+        }
+    }
 
     @Inject
     @InjectPresenter
@@ -39,6 +48,15 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.bottom_photo_of_the_day -> presenter.photoOfTheDayMenuItemClicked().let { true }
+                R.id.bottom_view_earth -> presenter.earthMenuItemClicked().let { true }
+                R.id.bottom_view_wiki -> presenter.wikiMenuItemClicked().let { true }
+                R.id.bottom_view_settings -> presenter.settingsMenuItemClicked().let { true }
+                else -> false
+            }
+        }
     }
 
     override fun getTheme(): Resources.Theme {
@@ -82,5 +100,31 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     fun findSavedTheme() = sharedPreferences.getString("Theme", "Theme.Moon") ?: ""
+
+    fun getCurrentScreenName(commands: Array<out Command>): String {
+        var currentScreenName = ""
+        when (val lastCommand: Command = commands[commands.size - 1]){
+            is Replace -> currentScreenName = lastCommand.screen.screenKey
+            is Forward -> currentScreenName = lastCommand.screen.screenKey
+            is Back -> currentScreenName = getPreviousFragmentName() ?: ""
+        }
+        return currentScreenName
+    }
+
+    private fun getPreviousFragmentName(): String? {
+        return when (supportFragmentManager.backStackEntryCount){
+            0 -> null
+            1 -> presenter.primaryScreen.toString()
+            else -> supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 2).name
+        }
+    }
+
+    override fun setPODMenuItemChecked() { bottom_navigation_view.menu.findItem(R.id.bottom_photo_of_the_day).isChecked = true }
+
+    override fun setWikiMenuItemChecked() { bottom_navigation_view.menu.findItem(R.id.bottom_view_wiki).isChecked = true }
+
+    override fun setSettingsMenuItemChecked() { bottom_navigation_view.menu.findItem(R.id.bottom_view_settings).isChecked = true }
+
+    override fun setEarthMenuItemChecked() { bottom_navigation_view.menu.findItem(R.id.bottom_view_earth).isChecked = true }
 
 }
