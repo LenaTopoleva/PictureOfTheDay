@@ -9,6 +9,13 @@ import javax.inject.Inject
 
 class MainPresenter @Inject constructor (val app: App, val router: Router): MvpPresenter<MainView>() {
 
+    companion object{
+        const val PICTURE_OF_THE_DAY_SCREEN = "PictureOfTheDayScreen"
+        const val WIKI_SEARCH_SCREEN = "WikiSearchScreen"
+        const val SETTINGS_SCREEN = "SettingsScreen"
+        const val EARTH_SCREEN = "EarthScreen"
+    }
+
     val primaryScreen = Screens.PictureOfTheDayScreen()
 
     override fun onFirstViewAttach() {
@@ -37,10 +44,10 @@ class MainPresenter @Inject constructor (val app: App, val router: Router): MvpP
     }
 
     fun checkCurrentBottomMenuItem(currentScreenName: String) {
-        if (currentScreenName.contains("PictureOfTheDayScreen")) viewState.setPODMenuItemChecked()
-        if (currentScreenName.contains("WikiSearchScreen")) viewState.setWikiMenuItemChecked()
-        if (currentScreenName.contains("SettingsScreen")) viewState.setSettingsMenuItemChecked()
-        if (currentScreenName.contains("EarthScreen")) viewState.setEarthMenuItemChecked()
+        if (currentScreenName.contains(PICTURE_OF_THE_DAY_SCREEN)) viewState.setPODMenuItemChecked()
+        if (currentScreenName.contains(WIKI_SEARCH_SCREEN)) viewState.setWikiMenuItemChecked()
+        if (currentScreenName.contains(SETTINGS_SCREEN)) viewState.setSettingsMenuItemChecked()
+        if (currentScreenName.contains(EARTH_SCREEN)) viewState.setEarthMenuItemChecked()
     }
 
 }

@@ -2,12 +2,9 @@ package com.lenatopoleva.pictureoftheday.ui.fragment
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import coil.api.load
 import com.lenatopoleva.pictureoftheday.R
 import com.lenatopoleva.pictureoftheday.mvp.model.entity.EarthPhotoServerResponse
@@ -15,6 +12,7 @@ import com.lenatopoleva.pictureoftheday.mvp.presenter.EarthPhotoPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.EarthPhotoView
 import com.lenatopoleva.pictureoftheday.ui.App
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
+import com.lenatopoleva.pictureoftheday.ui.utils.toast
 import kotlinx.android.synthetic.main.fragment_earth_photo.*
 import kotlinx.android.synthetic.main.fragment_picture_of_the_day.*
 import moxy.MvpAppCompatFragment
@@ -27,16 +25,16 @@ class EarthPhotoFragment  : MvpAppCompatFragment(), EarthPhotoView, BackButtonLi
     companion object {
         fun newInstance(earthPhotoServerResponse: EarthPhotoServerResponse) = EarthPhotoFragment().apply {
             arguments = Bundle().apply {
-                putParcelable("earthPhoto", earthPhotoServerResponse)
+                putParcelable(EARTH_PHOTO, earthPhotoServerResponse)
             }
         }
-    }
 
-//    var isFragmentVisible: Boolean = false
+        const val EARTH_PHOTO = "earthPhoto"
+    }
 
     val presenter by moxyPresenter {
         EarthPhotoPresenter(
-            this.arguments?.getParcelable<EarthPhotoServerResponse>("earthPhoto") as EarthPhotoServerResponse
+            this.arguments?.getParcelable<EarthPhotoServerResponse>(EARTH_PHOTO) as EarthPhotoServerResponse
         ).apply { App.instance.appComponent.inject(this) }
     }
 
@@ -69,27 +67,16 @@ class EarthPhotoFragment  : MvpAppCompatFragment(), EarthPhotoView, BackButtonLi
        toast(message)
     }
 
-//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-//        super.setUserVisibleHint(isVisibleToUser)
-//        isFragmentVisible = isVisibleToUser
-//    }
-
     override fun showLoading() {
         progressBar.visibility = View.VISIBLE
-        println("SHOW LOADING ${(this.arguments?.getParcelable<EarthPhotoServerResponse>("earthPhoto") as EarthPhotoServerResponse).date}")
+        println("SHOW LOADING ${(this.arguments?.getParcelable<EarthPhotoServerResponse>(EARTH_PHOTO) as EarthPhotoServerResponse).date}")
     }
 
     override fun hideLoading() {
         progressBar.visibility = View.GONE
-        println("HIDE LOADING ${(this.arguments?.getParcelable<EarthPhotoServerResponse>("earthPhoto") as EarthPhotoServerResponse).date}")
+        println("HIDE LOADING ${(this.arguments?.getParcelable<EarthPhotoServerResponse>(EARTH_PHOTO) as EarthPhotoServerResponse).date}")
     }
 
     override fun backPressed(): Boolean = presenter.backClick()
 
-    private fun Fragment.toast(string: String?) {
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
-            setGravity(Gravity.BOTTOM, 0, 250)
-            show()
-        }
-    }
 }

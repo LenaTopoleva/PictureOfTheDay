@@ -1,18 +1,16 @@
 package com.lenatopoleva.pictureoftheday.ui.fragment
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.lenatopoleva.pictureoftheday.R
 import com.lenatopoleva.pictureoftheday.mvp.presenter.EarthGalleryPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.EarthGalleryView
 import com.lenatopoleva.pictureoftheday.ui.App
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import com.lenatopoleva.pictureoftheday.ui.adapter.ViewPagerAdapter
+import com.lenatopoleva.pictureoftheday.ui.utils.toast
 import kotlinx.android.synthetic.main.fragment_earth_gallery.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
@@ -56,10 +54,4 @@ class EarthGalleryFragment: MvpAppCompatFragment(), EarthGalleryView, BackButton
 
     override fun backPressed(): Boolean = presenter.backClick()
 
-    private fun Fragment.toast(string: String?) {
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
-            setGravity(Gravity.BOTTOM, 0, 250)
-            show()
-        }
-    }
 }

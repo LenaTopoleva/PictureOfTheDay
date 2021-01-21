@@ -43,6 +43,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     @ProvidePresenter
     fun provide() = presenter
 
+    companion object {
+        const val THEME = "Theme"
+        const val THEME_MOON = "Theme.Moon"
+        const val THEME_MARS = "Theme.Mars"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         App.instance.appComponent.inject(this)
         super.onCreate(savedInstanceState)
@@ -62,8 +68,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun getTheme(): Resources.Theme {
         val theme: Resources.Theme = super.getTheme()
         when(findSavedTheme()) {
-            "Theme.Moon" -> theme.applyStyle(R.style.Theme_Moon, true)
-            "Theme.Mars" -> theme.applyStyle(R.style.Theme_Mars, true)
+            THEME_MOON -> theme.applyStyle(R.style.Theme_Moon, true)
+            THEME_MARS -> theme.applyStyle(R.style.Theme_Mars, true)
         }
         return theme
     }
@@ -99,7 +105,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         presenter.backClick()
     }
 
-    fun findSavedTheme() = sharedPreferences.getString("Theme", "Theme.Moon") ?: ""
+    fun findSavedTheme() = sharedPreferences.getString(THEME, THEME_MOON) ?: ""
 
     fun getCurrentScreenName(commands: Array<out Command>): String {
         var currentScreenName = ""
