@@ -29,6 +29,6 @@ class ViewPagerAdapter(val presenter: EarthGalleryPresenter.ViewPagerPresenter, 
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return presenter.getPageTitle()
+        return presenter.getPageTitle(position)
     }
 }

@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class EarthGalleryPresenter @Inject constructor(val router: Router, val repo: IEarthGalleryRepo, val uiScheduler: Scheduler): MvpPresenter<EarthGalleryView>() {
 
-    class ViewPagerPresenter{
+    class ViewPagerPresenter {
 
         var earthPhotos = mutableListOf<EarthPhotoServerResponse>()
 
@@ -24,8 +24,12 @@ class EarthGalleryPresenter @Inject constructor(val router: Router, val repo: IE
             return earthPhotos.size
         }
 
-        fun getPageTitle(): CharSequence? {
-            return null
+        fun getPageTitle(position: Int): CharSequence? {
+            var pageTitle: CharSequence? = ""
+            for (i in 0..earthPhotos.size) {
+                if (i == position) pageTitle = earthPhotos[i].date
+            }
+            return pageTitle
         }
     }
 

@@ -47,6 +47,7 @@ class EarthGalleryFragment: MvpAppCompatFragment(), EarthGalleryView, BackButton
 
     override fun init() {
         view_pager.adapter = ViewPagerAdapter(presenter.viewPagerPresenter, childFragmentManager)
+        tab_layout.setupWithViewPager(view_pager)
     }
 
     override fun showError(message: String?) {
