@@ -1,16 +1,9 @@
 package com.lenatopoleva.pictureoftheday.di
 
-import com.lenatopoleva.pictureoftheday.di.modules.ApiModule
-import com.lenatopoleva.pictureoftheday.di.modules.AppModule
-import com.lenatopoleva.pictureoftheday.di.modules.NavigationModule
-import com.lenatopoleva.pictureoftheday.di.modules.PictureOfTheDayModule
-import com.lenatopoleva.pictureoftheday.mvp.presenter.MainPresenter
-import com.lenatopoleva.pictureoftheday.mvp.presenter.PictureOfTheDayPresenter
-import com.lenatopoleva.pictureoftheday.mvp.presenter.WikiSearchPresenter
+import com.lenatopoleva.pictureoftheday.di.modules.*
+import com.lenatopoleva.pictureoftheday.mvp.presenter.*
 import com.lenatopoleva.pictureoftheday.ui.activity.MainActivity
-import com.lenatopoleva.pictureoftheday.ui.fragment.PictureOfTheDayFragment
-import com.lenatopoleva.pictureoftheday.ui.fragment.SettingsFragment
-import com.lenatopoleva.pictureoftheday.ui.fragment.WikiSearchFragment
+import com.lenatopoleva.pictureoftheday.ui.fragment.*
 import dagger.Component
 import javax.inject.Singleton
 
@@ -19,7 +12,8 @@ import javax.inject.Singleton
     AppModule::class,
     ApiModule::class,
     PictureOfTheDayModule::class,
-    NavigationModule::class
+    NavigationModule::class,
+    EarthGalleryModule::class
 ])
 
 interface AppComponent {
@@ -30,5 +24,9 @@ interface AppComponent {
     fun inject(pictureOfTheDayFragment: PictureOfTheDayFragment)
     fun inject(wikiSearchFragment: WikiSearchFragment)
     fun inject(settingsFragment: SettingsFragment)
+    fun inject(earthGalleryFragment: EarthGalleryFragment)
+    fun inject(earthGalleryPresenter: EarthGalleryPresenter)
+    fun inject(earthPhotoFragment: EarthPhotoFragment)
+    fun inject(earthPhotoPresenter: EarthPhotoPresenter)
 
 }

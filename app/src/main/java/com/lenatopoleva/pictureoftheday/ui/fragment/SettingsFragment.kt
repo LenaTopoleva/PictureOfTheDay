@@ -21,6 +21,10 @@ class SettingsFragment : MvpAppCompatFragment(), SettingsView, BackButtonListene
 
     companion object {
         fun newInstance() = SettingsFragment()
+
+        const val THEME = "Theme"
+        const val THEME_MOON = "Theme.Moon"
+        const val THEME_MARS = "Theme.Mars"
     }
 
     @Inject lateinit var sharedPreferences: SharedPreferences
@@ -44,15 +48,15 @@ class SettingsFragment : MvpAppCompatFragment(), SettingsView, BackButtonListene
 
     override fun init() {
         when(currentTheme){
-            "Theme.Moon" -> moon_chip.isChecked = true
-            "Theme.Mars" -> mars_chip.isChecked = true
+            THEME_MOON -> moon_chip.isChecked = true
+            THEME_MARS -> mars_chip.isChecked = true
         }
         moon_chip.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean -> presenter.themeChipCheked(isChecked, "Theme.Moon")}
         mars_chip.setOnCheckedChangeListener {compoundButton: CompoundButton, isChecked: Boolean -> presenter.themeChipCheked(isChecked,"Theme.Mars")}
     }
 
     override fun saveTheme(themeName: String) {
-        sharedPreferences.edit()?.putString("Theme", themeName)?.commit()
+        sharedPreferences.edit()?.putString(THEME, themeName)?.commit()
     }
 
     override fun updateTheme() {
@@ -60,7 +64,7 @@ class SettingsFragment : MvpAppCompatFragment(), SettingsView, BackButtonListene
     }
 
     override fun checkTheme() {
-        currentTheme = sharedPreferences.getString("Theme", "Theme.Moon")
+        currentTheme = sharedPreferences.getString(THEME, THEME_MOON)
     }
 
     override fun backPressed(): Boolean = presenter.backClick()

@@ -1,8 +1,6 @@
 package com.lenatopoleva.pictureoftheday.navigation
 
-import com.lenatopoleva.pictureoftheday.ui.fragment.PictureOfTheDayFragment
-import com.lenatopoleva.pictureoftheday.ui.fragment.SettingsFragment
-import com.lenatopoleva.pictureoftheday.ui.fragment.WikiSearchFragment
+import com.lenatopoleva.pictureoftheday.ui.fragment.*
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
@@ -16,5 +14,9 @@ class Screens {
 
     class SettingsScreen() : SupportAppScreen() {
         override fun getFragment() = SettingsFragment.newInstance()
+    }
+
+    class EarthGalleryScreen() : SupportAppScreen() {
+        override fun getFragment() = EarthGalleryFragment.newInstance()
     }
 }
