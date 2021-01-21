@@ -33,7 +33,7 @@ class MainPresenter @Inject constructor (val app: App, val router: Router): MvpP
     }
 
     fun earthMenuItemClicked() {
-        router.navigateTo(Screens.EarthScreen())
+        router.navigateTo(Screens.EarthGalleryScreen())
     }
 
     fun checkCurrentBottomMenuItem(currentScreenName: String) {
@@ -42,6 +42,5 @@ class MainPresenter @Inject constructor (val app: App, val router: Router): MvpP
         if (currentScreenName.contains("SettingsScreen")) viewState.setSettingsMenuItemChecked()
         if (currentScreenName.contains("EarthScreen")) viewState.setEarthMenuItemChecked()
     }
-
 
 }

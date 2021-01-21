@@ -4,6 +4,7 @@ import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 
 @AddToEndSingle
-interface EarthView : MvpView {
+interface EarthGalleryView : MvpView {
     fun init()
+    fun showError(message: String?)
 }
