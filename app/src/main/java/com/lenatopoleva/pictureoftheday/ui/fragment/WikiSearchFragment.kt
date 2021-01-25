@@ -1,6 +1,7 @@
 package com.lenatopoleva.pictureoftheday.ui.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +47,7 @@ class WikiSearchFragment: MvpAppCompatFragment(), WikiSearchView, BackButtonList
     ): View {
         val rootView = View.inflate(context, R.layout.fragment_wiki_search, null)
         webView = rootView.findViewById<WebView>(R.id.wiki_web_view)
+        webView.setBackgroundColor(Color.TRANSPARENT)
         return rootView
     }
 
