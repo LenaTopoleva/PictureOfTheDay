@@ -1,11 +1,13 @@
 package com.lenatopoleva.pictureoftheday.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.view.isVisible
 import com.lenatopoleva.pictureoftheday.R
 import com.lenatopoleva.pictureoftheday.mvp.presenter.WikiSearchPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.WikiSearchView
@@ -42,16 +44,10 @@ class WikiSearchFragment: MvpAppCompatFragment(), WikiSearchView, BackButtonList
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val rootView = View.inflate(context, R.layout.fragment_wiki_search_start, null)
+        val rootView = View.inflate(context, R.layout.fragment_wiki_search, null)
         webView = rootView.findViewById<WebView>(R.id.wiki_web_view)
         return rootView
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        presenter.onFragmentViewCreated()
-    }
-
 
     override fun init() {
         input_layout.setEndIconOnClickListener {
@@ -59,7 +55,9 @@ class WikiSearchFragment: MvpAppCompatFragment(), WikiSearchView, BackButtonList
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun showWikiPage(url: String) {
+        println("SHOW WIKI PAGE fun starts")
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
@@ -68,14 +66,11 @@ class WikiSearchFragment: MvpAppCompatFragment(), WikiSearchView, BackButtonList
         }
         webView.clearCache(true)
         webView.clearHistory()
-        webView.settings.setJavaScriptEnabled(true)
+        webView.settings.javaScriptEnabled = true
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
         webView.visibility = View.VISIBLE
+        println("WEB VIEW IS VISIBLE: ${webView.isVisible}")
         webView.loadUrl(url)
-    }
-
-    override fun startAnimation() {
-        wiki_search_motion_layout.transitionToEnd()
     }
 
     override fun backPressed() = presenter.backClick()

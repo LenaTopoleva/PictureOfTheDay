@@ -7,5 +7,4 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 interface WikiSearchView: MvpView {
     fun init()
     fun showWikiPage(url: String)
-    fun startAnimation()
 }
