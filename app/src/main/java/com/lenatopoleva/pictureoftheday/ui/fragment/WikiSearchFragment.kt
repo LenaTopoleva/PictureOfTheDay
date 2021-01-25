@@ -1,6 +1,5 @@
 package com.lenatopoleva.pictureoftheday.ui.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,9 +42,14 @@ class WikiSearchFragment: MvpAppCompatFragment(), WikiSearchView, BackButtonList
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val rootView = View.inflate(context, R.layout.fragment_wiki_search, null)
+        val rootView = View.inflate(context, R.layout.fragment_wiki_search_start, null)
         webView = rootView.findViewById<WebView>(R.id.wiki_web_view)
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.onFragmentViewCreated()
     }
 
 
@@ -68,6 +72,10 @@ class WikiSearchFragment: MvpAppCompatFragment(), WikiSearchView, BackButtonList
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
         webView.visibility = View.VISIBLE
         webView.loadUrl(url)
+    }
+
+    override fun startAnimation() {
+        wiki_search_motion_layout.transitionToEnd()
     }
 
     override fun backPressed() = presenter.backClick()

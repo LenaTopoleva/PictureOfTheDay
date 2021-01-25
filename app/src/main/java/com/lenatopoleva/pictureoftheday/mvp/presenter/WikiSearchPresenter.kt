@@ -23,4 +23,8 @@ class WikiSearchPresenter @Inject constructor(val app: App, val router: Router):
         viewState.showWikiPage("https://en.wikipedia.org/wiki/$term")
     }
 
+    fun onFragmentViewCreated() {
+        viewState.startAnimation()
+    }
+
 }

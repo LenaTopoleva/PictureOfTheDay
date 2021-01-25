@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import coil.api.load
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lenatopoleva.pictureoftheday.ui.App
-import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import com.lenatopoleva.pictureoftheday.R
 import com.lenatopoleva.pictureoftheday.mvp.presenter.PictureOfTheDayPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.PictureOfTheDayView
+import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import com.lenatopoleva.pictureoftheday.ui.utils.toast
-import kotlinx.android.synthetic.main.bottom_sheet.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_picture_of_the_day.*
+import kotlinx.android.synthetic.main.fragment_picture_of_the_day.toolbar
 import kotlinx.android.synthetic.main.fragment_wiki_search.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
@@ -40,23 +40,27 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
         App.instance.appComponent.inject(this)
     }
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?) = View.inflate(context, R.layout.fragment_picture_of_the_day, null)
+        savedInstanceState: Bundle?): View {
+        val view = View.inflate(context, R.layout.fragment_picture_of_the_day, null)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        // Change activity toolbar to pictureOfTheDayFragment collapsing toolbar:
+        (activity as AppCompatActivity).supportActionBar?.hide()
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+        return view
     }
 
-    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+    override fun onStop() {
+        super.onStop()
+        // Return activity toolbar back:
+        (activity as AppCompatActivity).setSupportActionBar(activity?.main_toolbar)
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
+
 
     override fun init() {}
 
@@ -73,11 +77,11 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
     }
 
     override fun showDescription(description: String?) {
-        bottom_sheet_description.setText(description)
+        pod_description.setText(description)
     }
 
     override fun showTitle(title: String?) {
-        bottom_sheet_description_header.setText(title)
+        pod_description_header.setText(title)
     }
 
     override fun showVideo(url: String) {
