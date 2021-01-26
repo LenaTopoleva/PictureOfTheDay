@@ -9,6 +9,7 @@ import coil.api.load
 import com.lenatopoleva.pictureoftheday.R
 import com.lenatopoleva.pictureoftheday.mvp.model.entity.EarthPhotoServerResponse
 import com.lenatopoleva.pictureoftheday.mvp.presenter.EarthPhotoPresenter
+import com.lenatopoleva.pictureoftheday.mvp.presenter.PresenterFactory
 import com.lenatopoleva.pictureoftheday.mvp.view.EarthPhotoView
 import com.lenatopoleva.pictureoftheday.ui.App
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
@@ -18,9 +19,13 @@ import kotlinx.android.synthetic.main.fragment_picture_of_the_day.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import java.io.InputStream
+import javax.inject.Inject
 
 
 class EarthPhotoFragment  : MvpAppCompatFragment(), EarthPhotoView, BackButtonListener {
+
+    @Inject
+    lateinit var presenterFactory: PresenterFactory
 
     companion object {
         fun newInstance(earthPhotoServerResponse: EarthPhotoServerResponse) = EarthPhotoFragment().apply {
@@ -28,14 +33,12 @@ class EarthPhotoFragment  : MvpAppCompatFragment(), EarthPhotoView, BackButtonLi
                 putParcelable(EARTH_PHOTO, earthPhotoServerResponse)
             }
         }
-
         const val EARTH_PHOTO = "earthPhoto"
     }
 
     val presenter by moxyPresenter {
-        EarthPhotoPresenter(
-            this.arguments?.getParcelable<EarthPhotoServerResponse>(EARTH_PHOTO) as EarthPhotoServerResponse
-        ).apply { App.instance.appComponent.inject(this) }
+        presenterFactory.createEarthPhotoPresenter(this.arguments?.getParcelable<EarthPhotoServerResponse>(EARTH_PHOTO) as EarthPhotoServerResponse
+        )
     }
 
     init {

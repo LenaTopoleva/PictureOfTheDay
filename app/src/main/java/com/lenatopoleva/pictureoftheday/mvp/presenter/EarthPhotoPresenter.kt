@@ -10,14 +10,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.terrakok.cicerone.Router
-import javax.inject.Inject
 
 
-class EarthPhotoPresenter(val earthPhotoServerResponse: EarthPhotoServerResponse): MvpPresenter<EarthPhotoView>() {
-
-    @Inject lateinit var router: Router
-    @Inject lateinit var repo: IEarthGalleryRepo
-    @Inject lateinit var uiScheduler: Scheduler
+class EarthPhotoPresenter(
+    val earthPhotoServerResponse: EarthPhotoServerResponse,
+    val router: Router,
+    val repo: IEarthGalleryRepo,
+    val uiScheduler: Scheduler, ): MvpPresenter<EarthPhotoView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

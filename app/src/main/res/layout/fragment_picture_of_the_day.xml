@@ -61,8 +61,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/photo_of_the_day_stub"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.9"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
