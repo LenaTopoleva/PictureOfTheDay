@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import coil.api.load
 import com.lenatopoleva.pictureoftheday.ui.App
@@ -17,7 +16,6 @@ import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import com.lenatopoleva.pictureoftheday.ui.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_picture_of_the_day.*
-import kotlinx.android.synthetic.main.fragment_picture_of_the_day.toolbar
 import kotlinx.android.synthetic.main.fragment_wiki_search.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
@@ -45,22 +43,8 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
         container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         val view = View.inflate(context, R.layout.fragment_picture_of_the_day, null)
-
-        // Change activity toolbar to pictureOfTheDayFragment collapsing toolbar:
-        (activity as AppCompatActivity).supportActionBar?.hide()
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-
         return view
     }
-
-
-    override fun onStop() {
-        super.onStop()
-        // Return activity toolbar back:
-        (activity as AppCompatActivity).setSupportActionBar(activity?.main_toolbar)
-        (activity as AppCompatActivity).supportActionBar?.show()
-    }
-
 
     override fun init() {}
 
