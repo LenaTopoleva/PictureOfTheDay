@@ -1,12 +1,16 @@
 package com.lenatopoleva.pictureoftheday.ui.fragment
 
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.LinearInterpolator
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isGone
 import coil.api.load
 import com.lenatopoleva.pictureoftheday.ui.App
@@ -15,10 +19,7 @@ import com.lenatopoleva.pictureoftheday.mvp.presenter.PictureOfTheDayPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.PictureOfTheDayView
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import com.lenatopoleva.pictureoftheday.ui.utils.toast
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_picture_of_the_day.*
-import kotlinx.android.synthetic.main.fragment_picture_of_the_day.toolbar
-import kotlinx.android.synthetic.main.fragment_wiki_search.*
+import kotlinx.android.synthetic.main.fragment_picture_of_the_day_start.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -44,25 +45,13 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        val view = View.inflate(context, R.layout.fragment_picture_of_the_day, null)
-
-        // Change activity toolbar to pictureOfTheDayFragment collapsing toolbar:
-        (activity as AppCompatActivity).supportActionBar?.hide()
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-
+        val view = View.inflate(context, R.layout.fragment_picture_of_the_day_start, null)
         return view
     }
 
-
-    override fun onStop() {
-        super.onStop()
-        // Return activity toolbar back:
-        (activity as AppCompatActivity).setSupportActionBar(activity?.main_toolbar)
-        (activity as AppCompatActivity).supportActionBar?.show()
+    override fun init() {
+        pod_layout.setOnClickListener { presenter.onLayoutClicked()}
     }
-
-
-    override fun init() {}
 
     override fun showPicture(url: String) {
         image_view.load(url) {
@@ -107,5 +96,25 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
     override fun hideWebView() {web_view.isGone = true}
 
     override fun backPressed() = presenter.backClick()
+
+    override fun showComponents() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(requireContext(), R.layout.fragment_picture_of_the_day_end)
+        val transition = ChangeBounds()
+        transition.interpolator = AccelerateInterpolator(1.0f)
+        transition.duration = 400
+        TransitionManager.beginDelayedTransition(pod_layout, transition)
+        constraintSet.applyTo(pod_layout)
+    }
+
+    override fun hideComponents() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(requireContext(), R.layout.fragment_picture_of_the_day_start)
+        val transition = ChangeBounds()
+        transition.interpolator = LinearInterpolator()
+        transition.duration = 600
+        TransitionManager.beginDelayedTransition(pod_layout, transition)
+        constraintSet.applyTo(pod_layout)
+    }
 
 }

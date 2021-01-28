@@ -14,10 +14,12 @@
     <color name="tall_poppy">#BC2929</color>
     <color name="persian_red">#D32F2F</color>
     <color name="trinidad">#E44902</color>
+    <color name="alfa_trinidad">#99E44902</color>
     <color name="blaze_orange">#FF6F00</color>
 
     <color name="snuff">#F3E5F5</color>
     <color name="chatelle">#C0B3C2</color>
     <color name="malibu">#8C9EFF</color>
+    <color name="alfa_malibu">#778C9EFF</color>
     <color name="indigo">#5870cb</color>
 </resources>

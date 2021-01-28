@@ -20,4 +20,7 @@ interface PictureOfTheDayView: MvpView {
     fun hideImageView()
     fun showImageView()
     fun hideWebView()
+
+    fun showComponents()
+    fun hideComponents()
 }
