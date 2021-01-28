@@ -10,6 +10,7 @@
         <item name="colorSurface">?colorPrimarySurface</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/malibu</item>
+        <item name="colorSecondaryWithAlfa">@color/alfa_malibu</item>
         <item name="colorSecondaryVariant">@color/indigo</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Background color. -->
@@ -35,6 +36,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/trinidad</item>
         <item name="colorSecondaryVariant">@color/blaze_orange</item>
+        <item name="colorSecondaryWithAlfa">@color/alfa_trinidad</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryDark</item>

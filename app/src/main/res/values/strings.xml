@@ -12,4 +12,5 @@
     <string name="photo_of_the_day">Фото дня</string>
     <string name="earth">Земля</string>
     <string name="settings">Настройки</string>
+    <string name="tap_for_info">Описание</string>
 </resources>
