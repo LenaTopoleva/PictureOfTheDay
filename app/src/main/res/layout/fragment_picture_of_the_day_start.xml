@@ -24,7 +24,7 @@
     <com.lenatopoleva.pictureoftheday.ui.custom.EquilateralImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/photo_of_the_day_stub"
         android:scaleType="centerCrop"

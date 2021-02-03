@@ -58,6 +58,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             when (item.itemId) {
                 R.id.bottom_photo_of_the_day -> presenter.photoOfTheDayMenuItemClicked().let { true }
                 R.id.bottom_view_earth -> presenter.earthMenuItemClicked().let { true }
+                R.id.bottom_view_notes -> presenter.notesMenuItemClicked().let { true }
                 R.id.bottom_view_wiki -> presenter.wikiMenuItemClicked().let { true }
                 R.id.bottom_view_settings -> presenter.settingsMenuItemClicked().let { true }
                 else -> false
@@ -132,5 +133,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun setSettingsMenuItemChecked() { bottom_navigation_view.menu.findItem(R.id.bottom_view_settings).isChecked = true }
 
     override fun setEarthMenuItemChecked() { bottom_navigation_view.menu.findItem(R.id.bottom_view_earth).isChecked = true }
+
+    override fun setNotesMenuItemChecked() { bottom_navigation_view.menu.findItem(R.id.bottom_view_notes).isChecked = true }
 
 }

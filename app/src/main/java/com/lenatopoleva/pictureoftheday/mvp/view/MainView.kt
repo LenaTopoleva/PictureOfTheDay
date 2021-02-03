@@ -9,4 +9,5 @@ interface MainView: MvpView {
     fun setWikiMenuItemChecked()
     fun setSettingsMenuItemChecked()
     fun setEarthMenuItemChecked()
+    fun setNotesMenuItemChecked()
 }
