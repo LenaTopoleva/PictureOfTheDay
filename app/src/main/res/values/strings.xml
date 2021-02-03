@@ -13,4 +13,10 @@
     <string name="earth">Земля</string>
     <string name="settings">Настройки</string>
     <string name="tap_for_info">Описание</string>
+    <string name="notes">Список дел</string>
+    <string name="notes_header">Список дел</string>
+    <string name="note_title">Новая задача</string>
+    <string name="note_body">Описание</string>
+    <string name="save_btn">Сохранить</string>
+    <string name="cancel_btn">Отмена</string>
 </resources>

@@ -19,4 +19,8 @@ class Screens {
     class EarthGalleryScreen() : SupportAppScreen() {
         override fun getFragment() = EarthGalleryFragment.newInstance()
     }
+
+    class NotesScreen() : SupportAppScreen() {
+        override fun getFragment() = NotesFragment.newInstance()
+    }
 }

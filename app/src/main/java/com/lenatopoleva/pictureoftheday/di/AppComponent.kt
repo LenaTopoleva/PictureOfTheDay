@@ -28,5 +28,7 @@ interface AppComponent {
     fun inject(earthGalleryPresenter: EarthGalleryPresenter)
     fun inject(earthPhotoFragment: EarthPhotoFragment)
     fun inject(earthPhotoPresenter: EarthPhotoPresenter)
+    fun inject(notesFragment: NotesFragment)
+    fun inject(noteDialogFragment: NoteDialogFragment)
 
 }
