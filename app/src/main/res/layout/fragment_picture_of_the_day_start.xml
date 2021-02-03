@@ -32,7 +32,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_no_photo_vector"
         android:background="@android:color/transparent"/>
 
     <androidx.constraintlayout.widget.Group
@@ -81,22 +80,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/pod_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimary"
-        android:gravity="center"
-        android:paddingTop="8dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp"
-        android:textColor="?colorOnPrimary"
-        android:textSize="12sp"
-        android:fontFamily="@font/p_t_serif_regular"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/pod_description_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/pod_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimary"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="?colorOnPrimary"
+            android:textSize="12sp"
+            android:fontFamily="@font/p_t_serif_regular"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

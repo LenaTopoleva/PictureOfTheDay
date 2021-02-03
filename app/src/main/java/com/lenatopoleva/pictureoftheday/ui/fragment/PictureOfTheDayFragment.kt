@@ -50,6 +50,9 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
     }
 
     override fun init() {
+        tap.setOnClickListener { presenter.onLayoutClicked()}
+        pod_description.setOnClickListener { presenter.onLayoutClicked()}
+        pod_description_header.setOnClickListener { presenter.onLayoutClicked()}
         pod_layout.setOnClickListener { presenter.onLayoutClicked()}
     }
 

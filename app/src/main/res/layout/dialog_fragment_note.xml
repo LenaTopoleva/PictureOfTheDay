@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="@string/note_title"
+        android:fontFamily="?mainFont"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="@string/note_body"
+        android:fontFamily="?mainFont"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/note_title_edit_text" />
@@ -30,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save_btn"
+        android:fontFamily="?mainFont"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnCancel"
@@ -41,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel_btn"
+        android:fontFamily="?mainFont"
         app:layout_constraintEnd_toStartOf="@+id/btnYes"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

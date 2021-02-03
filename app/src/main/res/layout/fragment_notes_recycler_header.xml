@@ -12,8 +12,9 @@
         android:padding="15dp"
         android:text="@string/notes_header"
         android:textColor="?colorSecondary"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
+        android:fontFamily="?mainFontBoldItalic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
