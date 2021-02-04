@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
         <attr name="colorSecondaryWithAlfa" format="reference" />
+        <attr name="mainFont" format="reference" />
+        <attr name="mainFontBoldItalic" format="reference" />
 </resources>

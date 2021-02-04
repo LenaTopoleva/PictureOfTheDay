@@ -1,5 +1,6 @@
 package com.lenatopoleva.pictureoftheday.mvp.view
 
+import com.lenatopoleva.pictureoftheday.mvp.presenter.PictureOfTheDayPresenter
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 import moxy.viewstate.strategy.alias.Skip
@@ -12,7 +13,10 @@ interface PictureOfTheDayView: MvpView {
     @Skip
     fun showError(message: String?)
 
-    fun showDescription(description: String?)
+    fun showDescription(
+        description: CharSequence?,
+        termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>?
+    )
     fun showTitle(title: String?)
     fun showVideo(url: String)
 
@@ -23,4 +27,5 @@ interface PictureOfTheDayView: MvpView {
 
     fun showComponents()
     fun hideComponents()
+
 }
