@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/chatelle</item>
         <item name="colorPrimarySurface">@color/white</item>
         <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimaryWithAlfa">@color/alfa_black</item>
         <item name="colorSurface">?colorPrimarySurface</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/malibu</item>
@@ -15,6 +16,7 @@
         <item name="colorOnSecondary">@color/white</item>
         <!-- Background color. -->
         <item name="android:windowBackground">@color/color_gray</item>
+        <item name="viewPagerBackgroundColor">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Window animation -->
@@ -24,8 +26,9 @@
 
         <item name="collapsedTitleTextAppearance">?colorOnPrimary</item>
         <!-- Font -->
-        <item name="mainFont">@font/open_sans</item>
-        <item name="mainFontBoldItalic">@font/open_sans_bold_italic</item>
+        <item name="mainFont">@font/p_t_serif_regular</item>
+        <item name="mainFontBoldItalic">@font/p_t_serif_bold_italic</item>
+
     </style>
 
     <style name="Theme.Mars" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -35,6 +38,7 @@
         <item name="colorPrimaryDark">@color/sangria</item>
         <item name="colorPrimarySurface">?colorPrimary</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimaryWithAlfa">@color/alfa_white</item>
         <item name="colorSurface">@color/persian_red</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/trinidad</item>
@@ -45,6 +49,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryDark</item>
         <!-- Background color. -->
         <item name="android:windowBackground">?colorPrimaryVariant</item>
+        <item name="viewPagerBackgroundColor">@color/black</item>
         <!-- Window animation -->
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <!-- Bottom navigation -->
@@ -52,8 +57,8 @@
         <!-- Android navigation bar -->
         <item name="android:navigationBarColor">@color/black</item>
         <!-- Font -->
-        <item name="mainFont">@font/open_sans</item>
-        <item name="mainFontBoldItalic">@font/open_sans_bold_italic</item>
+        <item name="mainFont">@font/p_t_serif_regular</item>
+        <item name="mainFontBoldItalic">@font/p_t_serif_bold_italic</item>
     </style>
 
     <style name="Theme_Splash">
@@ -62,9 +67,14 @@
         <item name="android:navigationBarColor">@color/black</item>
     </style>
 
+    <style name="Theme.Button" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?colorOnPrimaryWithAlfa</item>
+        <item name="android:padding">15dp</item>
+    </style>
+
     <style name="TitleBarTextAppearance" parent="android:TextAppearance">
-        <item name="android:fontFamily">@font/open_sans_bold_italic</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textColor">?colorOnSecondary</item>
     </style>
 
