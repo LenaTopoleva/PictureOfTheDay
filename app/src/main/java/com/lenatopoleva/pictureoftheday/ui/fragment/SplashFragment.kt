@@ -2,16 +2,14 @@ package com.lenatopoleva.pictureoftheday.ui.fragment
 
 import android.animation.Animator
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.lenatopoleva.pictureoftheday.R
+import com.lenatopoleva.pictureoftheday.mvp.model.entity.PictureOfTheDayServerResponse
 import com.lenatopoleva.pictureoftheday.mvp.presenter.SplashPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.SplashView
 import com.lenatopoleva.pictureoftheday.ui.App
@@ -65,25 +63,17 @@ class SplashFragment: MvpAppCompatFragment(), SplashView, BackButtonListener {
         (activity as AppCompatActivity).bottom_navigation_view?.visibility = View.GONE
     }
 
-    override fun animateSplashImage() {
-        splash_image_view.animate().rotationBy(360f)
-            .setInterpolator(AccelerateDecelerateInterpolator()).setDuration(3000)
-            .setListener(object : Animator.AnimatorListener {
-                override fun onAnimationEnd(animation: Animator?) {
-                    presenter.onAnimationEnd()
-                }
-                override fun onAnimationRepeat(animation: Animator?) {}
-                override fun onAnimationCancel(animation: Animator?) {}
-                override fun onAnimationStart(animation: Animator?) {}
-            })
-    }
-
     override fun disableSplashTheme() {
         App.instance.isSplashThemeEnabled = false
     }
 
     override fun recreateActivity() {
         activity?.recreate()
+    }
+
+    override fun saveData(serverResponseData: PictureOfTheDayServerResponse?, errorMessage: String?) {
+        App.instance.serverPODResponseData = serverResponseData
+        App.instance.errorPODMessage = errorMessage
     }
 
     override fun backPressed(): Boolean = presenter.backClick()

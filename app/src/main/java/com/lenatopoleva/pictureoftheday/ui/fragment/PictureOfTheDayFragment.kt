@@ -25,7 +25,11 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isGone
 import coil.api.load
 import com.lenatopoleva.pictureoftheday.R
+import com.lenatopoleva.pictureoftheday.mvp.model.entity.EarthPhotoServerResponse
+import com.lenatopoleva.pictureoftheday.mvp.model.entity.PictureOfTheDayData
+import com.lenatopoleva.pictureoftheday.mvp.model.entity.PictureOfTheDayServerResponse
 import com.lenatopoleva.pictureoftheday.mvp.presenter.PictureOfTheDayPresenter
+import com.lenatopoleva.pictureoftheday.mvp.presenter.PresenterFactory
 import com.lenatopoleva.pictureoftheday.mvp.view.PictureOfTheDayView
 import com.lenatopoleva.pictureoftheday.ui.App
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
@@ -33,6 +37,7 @@ import com.lenatopoleva.pictureoftheday.ui.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_picture_of_the_day_start.*
 import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
@@ -40,15 +45,24 @@ import javax.inject.Inject
 
 class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, BackButtonListener {
     companion object {
-        fun newInstance() = PictureOfTheDayFragment()
+        fun newInstance(serverResponseData: PictureOfTheDayServerResponse?, errorMessage: String?) = PictureOfTheDayFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(POD_SERVER_RESPONSE, serverResponseData)
+                putString(ERROR_MESSAGE, errorMessage)
+            }
+        }
+        const val POD_SERVER_RESPONSE = "serverResponseData"
+        const val ERROR_MESSAGE = "errorMessage"
     }
 
     @Inject
-    @InjectPresenter
-    lateinit var presenter: PictureOfTheDayPresenter
+    lateinit var presenterFactory: PresenterFactory
 
-    @ProvidePresenter
-    fun provide() = presenter
+    val presenter by moxyPresenter {
+        presenterFactory.createPODPresenter(this.arguments?.getParcelable<PictureOfTheDayServerResponse?>(POD_SERVER_RESPONSE) as PictureOfTheDayServerResponse,
+                this.arguments?.getString(ERROR_MESSAGE)
+        )
+    }
 
     init {
         App.instance.appComponent.inject(this)
