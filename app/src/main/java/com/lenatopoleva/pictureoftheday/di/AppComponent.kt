@@ -30,5 +30,6 @@ interface AppComponent {
     fun inject(earthPhotoPresenter: EarthPhotoPresenter)
     fun inject(notesFragment: NotesFragment)
     fun inject(noteDialogFragment: NoteDialogFragment)
+    fun inject(splashFragment: SplashFragment)
 
 }

@@ -19,6 +19,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isGone
@@ -29,6 +30,7 @@ import com.lenatopoleva.pictureoftheday.mvp.view.PictureOfTheDayView
 import com.lenatopoleva.pictureoftheday.ui.App
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import com.lenatopoleva.pictureoftheday.ui.utils.toast
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_picture_of_the_day_start.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
@@ -59,6 +61,13 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
     ): View {
         val view = View.inflate(context, R.layout.fragment_picture_of_the_day_start, null)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.show()
+        (activity as AppCompatActivity).bottom_navigation_view?.visibility = View.VISIBLE
+
     }
 
     override fun init() {
@@ -118,7 +127,7 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
 
     override fun hideWebView() {web_view.isGone = true}
 
-    override fun backPressed() = presenter.backClick()
+    override fun backPressed(): Boolean = presenter.backClick()
 
     override fun showComponents() {
         val constraintSet = ConstraintSet()
@@ -138,6 +147,18 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
         transition.duration = 600
         TransitionManager.beginDelayedTransition(pod_layout, transition)
         constraintSet.applyTo(pod_layout)
+    }
+
+    override fun recreateActivity() {
+        activity?.recreate()
+    }
+
+    private fun isItTheLastFragmentInStack(): Boolean {
+        return (fragmentManager?.fragments?.size == 1)
+    }
+
+    override fun enableSplashThemeIfItIsTheLastFragmentInStack() {
+       if ( isItTheLastFragmentInStack() ) App.instance.isSplashThemeEnabled = true
     }
 
     fun underlineTerms(spannable: SpannableString, termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>?): SpannableString {

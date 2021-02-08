@@ -28,4 +28,9 @@ interface PictureOfTheDayView: MvpView {
     fun showComponents()
     fun hideComponents()
 
+    @Skip
+    fun recreateActivity()
+
+    fun enableSplashThemeIfItIsTheLastFragmentInStack()
+
 }

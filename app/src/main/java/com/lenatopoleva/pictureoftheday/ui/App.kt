@@ -7,6 +7,8 @@ import com.lenatopoleva.pictureoftheday.di.modules.AppModule
 
 class App: Application() {
 
+    var isSplashThemeEnabled = true
+
     companion object {
         lateinit var instance: App
     }
@@ -20,4 +22,5 @@ class App: Application() {
             .appModule(AppModule(this))
             .build()
     }
+
 }

@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class PictureOfTheDayPresenter @Inject constructor(
     val app: App, val uiScheduler: Scheduler,
-    val router: Router, val pictureOfTheDayRepo: IPictureOfTheDayRepo
+    val router: Router, val pictureOfTheDayRepo: IPictureOfTheDayRepo,
 ): MvpPresenter<PictureOfTheDayView>()  {
     private var show = false
 
@@ -83,6 +83,7 @@ class PictureOfTheDayPresenter @Inject constructor(
 
 
     fun backClick(): Boolean {
+        viewState.enableSplashThemeIfItIsTheLastFragmentInStack()
         router.exit()
         return true
     }
@@ -100,6 +101,11 @@ class PictureOfTheDayPresenter @Inject constructor(
         show = false
         viewState.hideComponents()
     }
+
+//    fun updateTheme() {
+//        App.instance.isSplashFragmentOnScreen = false
+//        viewState.recreateActivity()
+//    }
 
     data class TermToDecorate(val term: String, val indexStart: Int, val indexEnd: Int)
 

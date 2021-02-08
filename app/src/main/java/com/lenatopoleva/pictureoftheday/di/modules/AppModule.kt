@@ -26,5 +26,6 @@ class AppModule(val app: App) {
     @Provides
     fun sharedPreferences(): SharedPreferences = app.getSharedPreferences(appName, Context.MODE_PRIVATE)
 
+    val isItSplash: Boolean = true
 
 }

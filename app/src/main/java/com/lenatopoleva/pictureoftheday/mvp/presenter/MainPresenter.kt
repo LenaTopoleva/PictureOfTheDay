@@ -18,10 +18,11 @@ class MainPresenter @Inject constructor (val app: App, val router: Router): MvpP
     }
 
     val primaryScreen = Screens.PictureOfTheDayScreen()
+    val splashScreen = Screens.SplashScreen()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(primaryScreen)
+        router.replaceScreen(splashScreen)
     }
 
     fun backClick() {

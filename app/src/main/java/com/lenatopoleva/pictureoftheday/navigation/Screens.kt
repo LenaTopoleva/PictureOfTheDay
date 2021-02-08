@@ -23,4 +23,8 @@ class Screens {
     class NotesScreen() : SupportAppScreen() {
         override fun getFragment() = NotesFragment.newInstance()
     }
+
+    class SplashScreen() : SupportAppScreen() {
+        override fun getFragment() = SplashFragment.newInstance()
+    }
 }
