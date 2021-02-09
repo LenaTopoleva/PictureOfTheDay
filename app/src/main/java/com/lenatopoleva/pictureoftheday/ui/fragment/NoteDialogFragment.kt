@@ -54,14 +54,13 @@ class NoteDialogFragment: MvpAppCompatDialogFragment(), NoteDialogView {
     }
 
     override fun sendData() {
-        (targetFragment as? DataTransmitter).let {
+        val tFragment = targetFragment as? DataTransmitter ?: return
             arguments?.getInt(NOTE_POSITION)?.let { position ->
-                it?.getData(
+                tFragment.getData(
                     position,
                     note_title_edit_text.text.toString(),
                     note_body_edit_text.text.toString()
                 )
             }
-        }
     }
 }
