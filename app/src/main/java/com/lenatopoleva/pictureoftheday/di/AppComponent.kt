@@ -19,7 +19,6 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(mainPresenter: MainPresenter)
-    fun inject(pictureOfTheDayPresenter: PictureOfTheDayPresenter)
     fun inject(wikiSearchPresenter: WikiSearchPresenter)
     fun inject(pictureOfTheDayFragment: PictureOfTheDayFragment)
     fun inject(wikiSearchFragment: WikiSearchFragment)
@@ -30,5 +29,6 @@ interface AppComponent {
     fun inject(earthPhotoPresenter: EarthPhotoPresenter)
     fun inject(notesFragment: NotesFragment)
     fun inject(noteDialogFragment: NoteDialogFragment)
+    fun inject(splashFragment: SplashFragment)
 
 }

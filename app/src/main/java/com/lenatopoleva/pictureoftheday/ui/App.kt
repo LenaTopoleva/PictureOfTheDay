@@ -4,8 +4,13 @@ import android.app.Application
 import com.lenatopoleva.pictureoftheday.di.AppComponent
 import com.lenatopoleva.pictureoftheday.di.DaggerAppComponent
 import com.lenatopoleva.pictureoftheday.di.modules.AppModule
+import com.lenatopoleva.pictureoftheday.mvp.model.entity.PictureOfTheDayServerResponse
 
 class App: Application() {
+
+    var isSplashThemeEnabled = true
+    var serverPODResponseData: PictureOfTheDayServerResponse? = null
+    var errorPODMessage: String? = null
 
     companion object {
         lateinit var instance: App
@@ -20,4 +25,5 @@ class App: Application() {
             .appModule(AppModule(this))
             .build()
     }
+
 }

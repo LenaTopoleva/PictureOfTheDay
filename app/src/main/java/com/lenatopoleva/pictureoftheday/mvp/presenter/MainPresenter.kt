@@ -17,11 +17,12 @@ class MainPresenter @Inject constructor (val app: App, val router: Router): MvpP
         const val NOTES_SCREEN = "NotesScreen"
     }
 
-    val primaryScreen = Screens.PictureOfTheDayScreen()
+    val primaryScreen = Screens.PictureOfTheDayScreen(App.instance.serverPODResponseData, App.instance.errorPODMessage)
+    val splashScreen = Screens.SplashScreen()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(primaryScreen)
+        router.replaceScreen(splashScreen)
     }
 
     fun backClick() {
@@ -37,7 +38,7 @@ class MainPresenter @Inject constructor (val app: App, val router: Router): MvpP
     }
 
     fun photoOfTheDayMenuItemClicked() {
-        router.navigateTo(Screens.PictureOfTheDayScreen())
+        router.navigateTo(Screens.PictureOfTheDayScreen(App.instance.serverPODResponseData, App.instance.errorPODMessage))
     }
 
     fun earthMenuItemClicked() {

@@ -1,7 +1,7 @@
 package com.lenatopoleva.pictureoftheday.ui.adapter.notes
 
 import android.annotation.SuppressLint
-import android.graphics.Color
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.lenatopoleva.pictureoftheday.R
 import com.lenatopoleva.pictureoftheday.mvp.presenter.NotesPresenter
+import com.lenatopoleva.pictureoftheday.ui.utils.getColorFromAttr
 import kotlinx.android.synthetic.main.fragment_notes_recycler_item.view.*
 import java.util.ArrayList
 
 
 class NotesRVAdapter (
+    val context: Context?,
     val presenter: NotesPresenter,
     private val dragListener: OnStartDragListener,
 )
@@ -115,16 +117,17 @@ class NotesRVAdapter (
         }
 
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            context?.getColorFromAttr(R.attr.colorPrimary)?.let { itemView.setBackgroundColor(it) }
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(Color.WHITE)
+            context?.getColorFromAttr(R.attr.colorSurface)?.let { itemView.setBackgroundColor(it) }
         }
     }
 
     inner class HeaderViewHolder(view: View) : BaseViewHolder(view) {
         override fun bind(dataItem: Pair<Data, Boolean>) {}
     }
+
 
 }

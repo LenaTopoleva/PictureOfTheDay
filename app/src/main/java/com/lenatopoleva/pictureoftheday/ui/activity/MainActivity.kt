@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.lenatopoleva.pictureoftheday.R
+import com.lenatopoleva.pictureoftheday.di.modules.AppModule
 import com.lenatopoleva.pictureoftheday.mvp.presenter.MainPresenter
 import com.lenatopoleva.pictureoftheday.mvp.view.MainView
 import com.lenatopoleva.pictureoftheday.ui.App
@@ -68,9 +69,16 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun getTheme(): Resources.Theme {
         val theme: Resources.Theme = super.getTheme()
-        when(findSavedTheme()) {
-            THEME_MOON -> theme.applyStyle(R.style.Theme_Moon, true)
-            THEME_MARS -> theme.applyStyle(R.style.Theme_Mars, true)
+        if (App.instance.isSplashThemeEnabled) {
+            println("IT IS SPLASH")
+            theme.applyStyle(R.style.Theme_Splash, true)
+        }
+        else  {
+            println("NOT SPLASH STYLE")
+            when (findSavedTheme()) {
+                THEME_MOON -> theme.applyStyle(R.style.Theme_Moon, true)
+                THEME_MARS -> theme.applyStyle(R.style.Theme_Mars, true)
+            }
         }
         return theme
     }

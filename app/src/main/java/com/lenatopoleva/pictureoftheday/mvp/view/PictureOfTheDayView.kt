@@ -15,7 +15,7 @@ interface PictureOfTheDayView: MvpView {
 
     fun showDescription(
         description: CharSequence?,
-        termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>?
+        termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>
     )
     fun showTitle(title: String?)
     fun showVideo(url: String)
@@ -27,5 +27,10 @@ interface PictureOfTheDayView: MvpView {
 
     fun showComponents()
     fun hideComponents()
+
+    @Skip
+    fun recreateActivity()
+
+    fun enableSplashThemeIfItIsTheLastFragmentInStack()
 
 }

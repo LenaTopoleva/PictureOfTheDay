@@ -19,18 +19,25 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isGone
 import coil.api.load
 import com.lenatopoleva.pictureoftheday.R
+import com.lenatopoleva.pictureoftheday.mvp.model.entity.EarthPhotoServerResponse
+import com.lenatopoleva.pictureoftheday.mvp.model.entity.PictureOfTheDayData
+import com.lenatopoleva.pictureoftheday.mvp.model.entity.PictureOfTheDayServerResponse
 import com.lenatopoleva.pictureoftheday.mvp.presenter.PictureOfTheDayPresenter
+import com.lenatopoleva.pictureoftheday.mvp.presenter.PresenterFactory
 import com.lenatopoleva.pictureoftheday.mvp.view.PictureOfTheDayView
 import com.lenatopoleva.pictureoftheday.ui.App
 import com.lenatopoleva.pictureoftheday.ui.BackButtonListener
 import com.lenatopoleva.pictureoftheday.ui.utils.toast
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_picture_of_the_day_start.*
 import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
@@ -38,15 +45,24 @@ import javax.inject.Inject
 
 class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, BackButtonListener {
     companion object {
-        fun newInstance() = PictureOfTheDayFragment()
+        fun newInstance(serverResponseData: PictureOfTheDayServerResponse?, errorMessage: String?) = PictureOfTheDayFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(POD_SERVER_RESPONSE, serverResponseData)
+                putString(ERROR_MESSAGE, errorMessage)
+            }
+        }
+        const val POD_SERVER_RESPONSE = "serverResponseData"
+        const val ERROR_MESSAGE = "errorMessage"
     }
 
     @Inject
-    @InjectPresenter
-    lateinit var presenter: PictureOfTheDayPresenter
+    lateinit var presenterFactory: PresenterFactory
 
-    @ProvidePresenter
-    fun provide() = presenter
+    val presenter by moxyPresenter {
+        presenterFactory.createPODPresenter(this.arguments?.getParcelable<PictureOfTheDayServerResponse?>(POD_SERVER_RESPONSE) as PictureOfTheDayServerResponse,
+                this.arguments?.getString(ERROR_MESSAGE)
+        )
+    }
 
     init {
         App.instance.appComponent.inject(this)
@@ -59,6 +75,13 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
     ): View {
         val view = View.inflate(context, R.layout.fragment_picture_of_the_day_start, null)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.show()
+        (activity as AppCompatActivity).bottom_navigation_view?.visibility = View.VISIBLE
+
     }
 
     override fun init() {
@@ -84,7 +107,7 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
 
     override fun showDescription(
         description: CharSequence?,
-        termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>?
+        termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>
     ) {
         val spannable = SpannableString(description)
         createDropCap(spannable)
@@ -118,7 +141,7 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
 
     override fun hideWebView() {web_view.isGone = true}
 
-    override fun backPressed() = presenter.backClick()
+    override fun backPressed(): Boolean = presenter.backClick()
 
     override fun showComponents() {
         val constraintSet = ConstraintSet()
@@ -140,13 +163,23 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
         constraintSet.applyTo(pod_layout)
     }
 
-    fun underlineTerms(spannable: SpannableString, termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>?): SpannableString {
-        if (termsToDecorateList != null) {
-            for(term: PictureOfTheDayPresenter.TermToDecorate in termsToDecorateList){
-                spannable.setSpan(
-                    CustomClickableSpan(term.term, requireActivity()), term.indexStart, term.indexEnd, Spanned.SPAN_INCLUSIVE_INCLUSIVE
-                )
-            }
+    override fun recreateActivity() {
+        activity?.recreate()
+    }
+
+    private fun isItTheLastFragmentInStack(): Boolean {
+        return (fragmentManager?.fragments?.size == 1)
+    }
+
+    override fun enableSplashThemeIfItIsTheLastFragmentInStack() {
+       if ( isItTheLastFragmentInStack() ) App.instance.isSplashThemeEnabled = true
+    }
+
+    fun underlineTerms(spannable: SpannableString, termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>): SpannableString {
+        for(term: PictureOfTheDayPresenter.TermToDecorate in termsToDecorateList){
+            spannable.setSpan(
+                CustomClickableSpan(term.term, requireActivity()), term.indexStart, term.indexEnd, Spanned.SPAN_INCLUSIVE_INCLUSIVE
+            )
         }
         return spannable
     }

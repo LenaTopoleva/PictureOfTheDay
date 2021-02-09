@@ -45,6 +45,7 @@ class NotesFragment: MvpAppCompatFragment(), NotesView, BackButtonListener, Data
 
     override fun init() {
         adapter = NotesRVAdapter(
+                context,
             presenter,
             object : OnStartDragListener {
                 override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
