@@ -107,7 +107,7 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
 
     override fun showDescription(
         description: CharSequence?,
-        termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>?
+        termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>
     ) {
         val spannable = SpannableString(description)
         createDropCap(spannable)
@@ -175,13 +175,11 @@ class PictureOfTheDayFragment: MvpAppCompatFragment(), PictureOfTheDayView, Back
        if ( isItTheLastFragmentInStack() ) App.instance.isSplashThemeEnabled = true
     }
 
-    fun underlineTerms(spannable: SpannableString, termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>?): SpannableString {
-        if (termsToDecorateList != null) {
-            for(term: PictureOfTheDayPresenter.TermToDecorate in termsToDecorateList){
-                spannable.setSpan(
-                    CustomClickableSpan(term.term, requireActivity()), term.indexStart, term.indexEnd, Spanned.SPAN_INCLUSIVE_INCLUSIVE
-                )
-            }
+    fun underlineTerms(spannable: SpannableString, termsToDecorateList: List<PictureOfTheDayPresenter.TermToDecorate>): SpannableString {
+        for(term: PictureOfTheDayPresenter.TermToDecorate in termsToDecorateList){
+            spannable.setSpan(
+                CustomClickableSpan(term.term, requireActivity()), term.indexStart, term.indexEnd, Spanned.SPAN_INCLUSIVE_INCLUSIVE
+            )
         }
         return spannable
     }
