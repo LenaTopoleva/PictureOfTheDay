@@ -20,6 +20,8 @@
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <!-- Bottom navigation -->
         <item name="bottomNavigationStyle">@style/MyBottomNavigationStyle</item>
+
+        <item name="collapsedTitleTextAppearance">?colorOnPrimary</item>
     </style>
 
     <style name="Theme.Mars" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -42,6 +44,13 @@
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <!-- Bottom navigation -->
         <item name="bottomNavigationStyle">@style/MyBottomNavigationStyle</item>
+
+    </style>
+
+    <style name="ExpandedAppBar" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">?colorOnPrimary</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="MyBottomNavigationStyle" parent = "Widget.MaterialComponents.BottomNavigationView">

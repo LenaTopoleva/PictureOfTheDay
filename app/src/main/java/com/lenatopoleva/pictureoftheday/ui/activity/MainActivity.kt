@@ -53,7 +53,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         App.instance.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(main_toolbar)
         bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_photo_of_the_day -> presenter.photoOfTheDayMenuItemClicked().let { true }
